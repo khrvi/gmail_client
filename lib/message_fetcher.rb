@@ -6,7 +6,7 @@ class MessageFetcher
 
   def perform
     # set creds through env variables
-    ::Gmail.connect(ENV['GMAIL_USER_NAME'], ENV['GMAIL_USER_PASSWORD']) do |gmail|
+    Gmail.connect(ENV['GMAIL_USER_NAME'], ENV['GMAIL_USER_PASSWORD']) do |gmail|
       if gmail.logged_in?
         gmail.inbox.emails(:all).each do |email|
           # put a couple attrs to DB for now
