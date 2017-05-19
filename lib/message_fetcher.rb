@@ -9,8 +9,13 @@ class MessageFetcher
     Gmail.connect(ENV['GMAIL_USER_NAME'], ENV['GMAIL_USER_PASSWORD']) do |gmail|
       if gmail.logged_in?
         gmail.inbox.emails(:all).each do |email|
-          # put a couple attrs to DB for now
-          Message.create(message_id: email.msg_id, body: email.message, label: email.labels)
+          Message.create(
+            message_id: email.msg_id,
+            body: email.message.body,
+            label: email.labels.to_s,
+            to: email.message.to,
+            from: email.message.from,
+            subject: email.message.subject)
         end
       else
         puts "Login failed."
