@@ -1,0 +1,4 @@
+:schedule:
+  update_messages:
+    cron: '0 * * * * *'
+    class: MessageFetcher
