@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :set_message, only: [:show, :update, :destroy]
 
   # GET /messages
   # GET /messages.json
@@ -12,31 +12,6 @@ class MessagesController < ApplicationController
   def show
   end
 
-  # GET /messages/new
-  def new
-    @message = Message.new
-  end
-
-  # GET /messages/1/edit
-  def edit
-  end
-
-  # POST /messages
-  # POST /messages.json
-  def create
-    @message = Message.new(message_params)
-
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /messages/1
   # PATCH/PUT /messages/1.json
   def update
@@ -45,7 +20,7 @@ class MessagesController < ApplicationController
         format.html { redirect_to @message, notice: 'Message was successfully updated.' }
         format.json { render :show, status: :ok, location: @message }
       else
-        format.html { render :edit }
+        format.html { redirect :back }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +44,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:message_id, :from, :to, :subject, :label, :body)
+      params.require(:message).permit(:read, :star)
     end
 end

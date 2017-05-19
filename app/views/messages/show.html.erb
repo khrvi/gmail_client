@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Message:</strong>
-  <%= @message.message_id %>
-</p>
-
-<p>
   <strong>From:</strong>
   <%= @message.from %>
 </p>
@@ -26,9 +21,17 @@
 </p>
 
 <p>
-  <strong>Body:</strong>
-  <%= @message.body %>
+  <strong>Actions:</strong>
+  <%= link_to 'Delete', @message, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to (@message.star ? "UnStar" : "Mark as star"), message_path(@message, :message => {:star => !@message.star}), :method=> :put %>
+  <%= link_to (@message.read ? "UnRead" : "Mark as read"), message_path(@message, :message => {:read => !@message.read}), :method=> :put %>
 </p>
 
-<%= link_to 'Edit', edit_message_path(@message) %> |
+<p>
+  <strong>Body:</strong>
+  <pre>
+    <%= raw @message.body %>
+  </pre>
+</p>
+
 <%= link_to 'Back', messages_path %>
