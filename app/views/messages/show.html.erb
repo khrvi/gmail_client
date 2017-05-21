@@ -21,6 +21,13 @@
 </p>
 
 <p>
+  <strong>Attachments:</strong>
+  <% @attachments.each do |attachment| %>
+    <%= attachment.filename %>
+  <% end %>
+</p>
+
+<p>
   <strong>Actions:</strong>
   <%= link_to 'Delete', @message, method: :delete, data: { confirm: 'Are you sure?' } %>
   <%= link_to (@message.star ? "UnStar" : "Mark as star"), message_path(@message, :message => {:star => !@message.star}), :method=> :put %>

@@ -16,7 +16,7 @@ class Message < ApplicationRecord
   end
 
   def delete_email
-    email = Gmailer.gmail.inbox.find(:msg_id => self.message_id).first
+    email = Gmailer.gmail.inbox.find(:all).find{|d| d.msg_id == self.message_id}
     email && email.delete!
   end
 

@@ -10,6 +10,8 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
+    email = Gmailer.gmail.inbox.find(:all).find {|e| e.msg_id == @message.message_id.to_i } #convert due to wrong type
+    @attachments = email ? email.message.attachments : []
   end
 
   # PATCH/PUT /messages/1
