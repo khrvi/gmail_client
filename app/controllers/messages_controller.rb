@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :update, :destroy]
+  before_action :set_message, only: [:show, :update, :destroy, :reply]
 
   # GET /messages
   # GET /messages.json
@@ -34,6 +34,22 @@ class MessagesController < ApplicationController
       format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def reply
+    message = @message
+    message_body = params[:message][:body]
+    email = Gmailer.gmail.compose do
+      to message.from[2..-3]
+      subject message.subject
+      text_part do
+        body message_body
+      end
+    end
+    email.deliver!
+
+    #do nothing for now
+    redirect_to @message, notice: 'Reply sent.'
   end
 
   private

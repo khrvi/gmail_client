@@ -34,4 +34,11 @@
   </pre>
 </p>
 
+<%= form_for @message, url: reply_message_path(@message), method: "post" do |message| %>
+  <%= message.text_area :body, cols: 80, rows: 10 %>
+  </br>
+  <%= message.submit "Reply" %>
+<% end %>
+
+</br>
 <%= link_to 'Back', messages_path %>
